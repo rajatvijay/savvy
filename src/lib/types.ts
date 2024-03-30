@@ -1,10 +1,3 @@
-type TransactionSourceType =
-  | "credit_card"
-  | "upi"
-  | "imps"
-  | "neft"
-  | "rtgs"
-  | "debit_card";
 type TransactionNature = "credit" | "debit";
 type Authority = "AXIS" | "HDFC" | "AMEX" | "BoB";
 
@@ -16,8 +9,8 @@ type BaseTransaction = {
   authority: Authority;
   nature: TransactionNature;
   outflow: string;
-  expenseHead: string;
-  comments: string;
+  expenseHead: string | null;
+  comments: string | null;
   currency: string;
 };
 
@@ -56,3 +49,15 @@ export type Transaction =
   | NeftTransaction
   | RtgsTransaction
   | DebitCardTransaction;
+
+export type Category = {
+  id: string;
+  label: string;
+  expenseHeads: string[];
+};
+
+export type CategorizationFormData = {
+  outflow: Transaction["outflow"];
+  expenseHead: Transaction["expenseHead"];
+  comments: Transaction["comments"];
+};
