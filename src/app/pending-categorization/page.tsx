@@ -4,6 +4,7 @@ import {
 } from "@/lib/firestore";
 import { Navbar } from "@/ui/Navbar";
 import { PendingCategorizationList } from "@/ui/PendingCategorizationList";
+import { Empty } from "antd";
 
 export default async function PendingCategorizations() {
   const pending = await getTransactionsPendingCategorization();
@@ -11,10 +12,14 @@ export default async function PendingCategorizations() {
   return (
     <main style={{ minHeight: "100vh" }}>
       <Navbar selectedTab="Pending" />
-      <PendingCategorizationList
-        transactions={pending}
-        categories={categories}
-      />
+      {pending.length > 0 ? (
+        <PendingCategorizationList
+          transactions={pending}
+          categories={categories}
+        />
+      ) : (
+        <Empty />
+      )}
     </main>
   );
 }

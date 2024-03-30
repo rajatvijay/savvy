@@ -1,4 +1,4 @@
-import { OTHERS_CATEGORY_LABEL } from "@/lib/firebaseConstants";
+import { OTHERS_CATEGORY_LABEL } from "@/utils/constants";
 import { CategorizationFormData, Category, Transaction } from "@/lib/types";
 import { formatDate } from "@/utils/date";
 import { formatCurrency } from "@/utils/number";
@@ -71,7 +71,12 @@ export function CategorizeTransaction({
           />
         </Form.Item>
         {expenseHeadOptions.length ? (
-          <Form.Item label="Expense Head" name="expenseHead">
+          <Form.Item
+            label="Expense Head"
+            name="expenseHead"
+            required
+            rules={[{ required: true }]}
+          >
             <Radio.Group
               size="large"
               options={expenseHeadOptions}

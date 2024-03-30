@@ -10,14 +10,20 @@ import { db } from "./firebase";
 import { Category, Transaction } from "./types";
 import {
   CATEGORIES_COLLECTION_NAME,
-  TRANSACTIONS_COLLECTION_NAME,
-} from "./firebaseConstants";
+  TRANSACTIONS_COLLECTION_NAME_DEV,
+  TRANSACTIONS_COLLECTION_NAME_PROD,
+} from "../utils/constants";
+import { isProdEnv } from "@/utils/env";
+
+const TRANSACTIONS_COLLECTION_NAME = isProdEnv()
+  ? TRANSACTIONS_COLLECTION_NAME_PROD
+  : TRANSACTIONS_COLLECTION_NAME_DEV;
 
 export async function getTransactionsPendingCategorization(): Promise<
   Transaction[]
 > {
   const q = query(
-    collection(db, "testTransactions"),
+    collection(db, TRANSACTIONS_COLLECTION_NAME),
     where("outflow", "==", null)
   );
   const snapshot = await getDocs(q);

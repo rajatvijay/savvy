@@ -11,7 +11,7 @@ import chalk from "chalk";
 import {
   CATEGORIES_COLLECTION_NAME,
   OTHERS_CATEGORY_LABEL,
-} from "@/lib/firebaseConstants";
+} from "@/utils/constants";
 
 config({
   path: path.resolve(process.cwd(), ".env.local"),
